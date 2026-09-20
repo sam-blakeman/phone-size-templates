@@ -4,8 +4,9 @@
 #   - Body and screen figures must come from the manufacturer's own spec page. Put the URL in `source`.
 #   - Body width/height are in the orientation you want drawn on paper. For a foldable's open
 #     state that is usually landscape, exactly as the manufacturer lists it.
-#   - Screen is given as pixels plus ppi, in the same orientation as the body (px_w runs along body width).
-#     The generator computes the physical active area from these, which is more accurate than a quoted diagonal.
+#   - Screen is given as pixels in the same orientation as the body (px_w runs along body width), plus either
+#     `ppi` or `diagonal_mm` (the full-rectangle diagonal, which Samsung publishes instead of ppi).
+#     The generator computes the physical active area from these, which is more accurate than a quoted inch figure.
 #   - corner_radius_mm is an estimate for a nicer cut line. Manufacturers do not publish it. Say so if you measured it.
 #   - hinge: vertical | horizontal | null. Draws a dashed fold line through the middle of that state.
 #   - diagonal_in is optional. If present, `generate.py --check` warns when the computed diagonal disagrees by more than 0.05 in.
@@ -96,3 +97,60 @@ devices:
         weight_g: 233
         screen: {px_w: 1320, px_h: 2868, ppi: 460, diagonal_in: 6.86}
         corner_radius_mm: 13
+
+  - id: galaxy-z-fold8
+    name: Galaxy Z Fold8
+    maker: Samsung
+    released: 2026-08
+    source: https://www.samsung.com/uk/smartphones/galaxy-z-fold8/specs/
+    notes: Wide 4:3 form factor, passport-shaped when closed. Samsung lists dimensions as H x W x D.
+    states:
+      - name: closed
+        body: {w: 81.9, h: 123.9, d: 9.7}
+        weight_g: 201
+        screen: {px_w: 1248, px_h: 1972, diagonal_mm: 138.4, diagonal_in: 5.45}
+        corner_radius_mm: 8
+      - name: open
+        body: {w: 161.4, h: 123.9, d: 4.5}
+        weight_g: 201
+        screen: {px_w: 2448, px_h: 1848, diagonal_mm: 193.2, diagonal_in: 7.61}
+        corner_radius_mm: 8
+        hinge: vertical
+
+  - id: galaxy-z-fold8-ultra
+    name: Galaxy Z Fold8 Ultra
+    maker: Samsung
+    released: 2026-08
+    source: https://www.samsung.com/uk/smartphones/galaxy-z-fold8-ultra/specs/
+    notes: Tall traditional book-style foldable. Samsung lists dimensions as H x W x D.
+    states:
+      - name: closed
+        body: {w: 72.8, h: 158.4, d: 8.9}
+        weight_g: 215
+        screen: {px_w: 1080, px_h: 2520, diagonal_mm: 164.8, diagonal_in: 6.49}
+        corner_radius_mm: 6
+      - name: open
+        body: {w: 143.2, h: 158.4, d: 4.1}
+        weight_g: 215
+        screen: {px_w: 2256, px_h: 2504, diagonal_mm: 203.1, diagonal_in: 8.0}
+        corner_radius_mm: 6
+        hinge: vertical
+
+  - id: pixel-11-pro-fold
+    name: Pixel 11 Pro Fold
+    maker: Google
+    released: 2026-08
+    source: https://support.google.com/pixelphone/answer/7158570
+    notes: Google lists dimensions as height x width x depth and resolution as width x height.
+    states:
+      - name: closed
+        body: {w: 76.0, h: 155.2, d: 10.1}
+        weight_g: 239
+        screen: {px_w: 1080, px_h: 2342, ppi: 399, diagonal_in: 6.46}
+        corner_radius_mm: 9
+      - name: open
+        body: {w: 150.4, h: 155.2, d: 5.0}
+        weight_g: 239
+        screen: {px_w: 2076, px_h: 2152, ppi: 372, diagonal_in: 8.04}
+        corner_radius_mm: 9
+        hinge: vertical

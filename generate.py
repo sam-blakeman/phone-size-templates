@@ -33,7 +33,14 @@ def load_yaml(name):
 
 
 def screen_mm(screen):
-    return screen["px_w"] / screen["ppi"] * 25.4, screen["px_h"] / screen["ppi"] * 25.4
+    """Physical active area in mm from pixels plus either ppi or the full-rectangle diagonal in mm."""
+    if screen.get("ppi"):
+        scale = 25.4 / screen["ppi"]                       # mm per pixel
+    elif screen.get("diagonal_mm"):
+        scale = screen["diagonal_mm"] / math.hypot(screen["px_w"], screen["px_h"])
+    else:
+        sys.exit(f"screen needs ppi or diagonal_mm: {screen}")
+    return screen["px_w"] * scale, screen["px_h"] * scale
 
 
 # ---------------------------------------------------------------- items
@@ -204,9 +211,15 @@ def draw_edge(c, it):
 
 def render(devices, ids, paper, out, title, edges=True):
     pw_pt, ph_pt = PAPERS[paper]
-    paper_w, paper_h = pw_pt / mm, ph_pt / mm
     items = build_items(devices, ids, edges)
-    pages = layout(items, paper_w, paper_h)
+    # try portrait and landscape, keep whichever needs fewer pages (portrait wins ties)
+    portrait = layout(items, pw_pt / mm, ph_pt / mm)
+    landscape = layout(items, ph_pt / mm, pw_pt / mm)
+    if len(landscape) < len(portrait):
+        pages, (pw_pt, ph_pt) = landscape, (ph_pt, pw_pt)
+    else:
+        pages = portrait
+    paper_w, paper_h = pw_pt / mm, ph_pt / mm
     c = canvas.Canvas(out, pagesize=(pw_pt, ph_pt), invariant=1)  # deterministic output, no timestamps
     c.setTitle(f"{title}, actual size ({paper.upper()})")
     c.setAuthor("phone-size-templates")

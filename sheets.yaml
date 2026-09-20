@@ -21,3 +21,23 @@ sheets:
     title: iPhone 17, Air, 17 Pro and 17 Pro Max
     devices: [iphone-17, iphone-air, iphone-17-pro, iphone-17-pro-max]
     paper: [a4, letter]
+
+  - id: galaxy-z-fold8
+    title: Galaxy Z Fold8, closed and open
+    devices: [galaxy-z-fold8]
+    paper: [a4, letter]
+
+  - id: galaxy-z-fold8-ultra
+    title: Galaxy Z Fold8 Ultra, closed and open
+    devices: [galaxy-z-fold8-ultra]
+    paper: [a4, letter]
+
+  - id: pixel-11-pro-fold
+    title: Pixel 11 Pro Fold, closed and open
+    devices: [pixel-11-pro-fold]
+    paper: [a4, letter]
+
+  - id: foldables-2026
+    title: iPhone Duo, Galaxy Z Fold8, Fold8 Ultra and Pixel 11 Pro Fold
+    devices: [iphone-duo, galaxy-z-fold8, galaxy-z-fold8-ultra, pixel-11-pro-fold]
+    paper: [a4, letter]
