@@ -6,6 +6,8 @@ Each template shows the body outline at 1:1 scale, the active screen area shaded
 
 All figures come from the manufacturer's own spec pages. Screen areas are computed from the published resolution and pixel density, which is more accurate than working back from a quoted diagonal.
 
+<a href="https://www.buymeacoffee.com/samblakeman" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" height="60" width="217"></a>
+
 ## Download
 
 | Sheet | Devices | A4 | US Letter |
@@ -58,6 +60,10 @@ Pull requests for other makers and older models are welcome. Watch the axis orde
 - Corner radii are estimates. Manufacturers do not publish them.
 - Camera cutouts and the Dynamic Island are not drawn, so the shaded area is total display rather than usable area.
 - Manufacturers round dimensions to 0.1 mm and printers drift by a few tenths of a millimetre. Do not use these for case making.
+
+## Support
+
+Free to use and always will be. If a template saved you a trip to the shop, you can [buy me a coffee](https://www.buymeacoffee.com/samblakeman). The QR code in the corner of each PDF goes to the same place.
 
 ## Licence
 

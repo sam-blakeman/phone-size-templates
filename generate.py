@@ -22,7 +22,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 PAPERS = {"a4": A4, "letter": letter}
 MARGIN = 8.0          # mm
 HEADER = 28.0         # mm reserved at top of every page
-FOOTER = 8.0          # mm reserved at bottom
+FOOTER = 17.0         # mm reserved at bottom (footer text plus QR)
 GAP = 6.0             # mm between items
 LABEL_PAD = 4.0       # mm below each item for nothing (labels are drawn inside)
 
@@ -177,13 +177,27 @@ def draw_header(c, paper_w, paper_h, title, page_no, page_count):
     c.drawString(xi + 3 * 25.4 * mm - 4 * mm, y0 - 3 * mm, "3 in")
 
 
-def draw_footer(c, paper_h):
+QR_PATH = os.path.join(HERE, "assets", "buymeacoffee-qr.png")
+QR_SIZE = 14.0        # mm, drawn in the footer's right corner
+COFFEE_URL = "https://www.buymeacoffee.com/samblakeman"
+REPO_URL = "https://github.com/sam-blakeman/phone-size-templates"
+
+
+def draw_footer(c, paper_w, paper_h):
     c.setFont("Helvetica", 6.5)
     c.setFillColorRGB(0.45, 0.45, 0.45)
-    c.drawString(MARGIN * mm, 4 * mm,
+    c.drawString(MARGIN * mm, 5 * mm,
                  "Shaded area = active display, computed from manufacturer resolution and ppi. "
-                 "Corner radii are estimates. Edge strips show thickness only. "
-                 "github.com/sam-blakeman/phone-size-templates")
+                 "Corner radii are estimates. Edge strips show thickness only.")
+    c.drawString(MARGIN * mm, 2 * mm, REPO_URL.replace("https://", ""))
+    c.linkURL(REPO_URL, (MARGIN * mm, 1 * mm, (MARGIN + 60) * mm, 4.5 * mm), relative=0)
+    # Buy Me a Coffee QR, bottom right, clickable
+    if os.path.exists(QR_PATH):
+        qx = paper_w - MARGIN - QR_SIZE
+        c.drawImage(QR_PATH, qx * mm, 1 * mm, QR_SIZE * mm, QR_SIZE * mm, mask="auto")
+        c.drawRightString((qx - 2) * mm, 6 * mm, "Saved you a trip to the shop?")
+        c.drawRightString((qx - 2) * mm, 3 * mm, "buymeacoffee.com/samblakeman")
+        c.linkURL(COFFEE_URL, ((qx - 45) * mm, 1 * mm, (paper_w - MARGIN) * mm, (1 + QR_SIZE) * mm), relative=0)
     c.setFillColorRGB(0, 0, 0)
 
 
@@ -250,7 +264,7 @@ def render(devices, ids, paper, out, title, edges=True):
         draw_header(c, paper_w, paper_h, title, n, len(pages))
         for it in pg:
             (draw_body if it["kind"] == "body" else draw_edge)(c, it)
-        draw_footer(c, paper_h)
+        draw_footer(c, paper_w, paper_h)
         c.showPage()
     c.save()
     return len(pages)
