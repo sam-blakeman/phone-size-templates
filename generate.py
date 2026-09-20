@@ -16,6 +16,7 @@ import sys
 import yaml
 from reportlab.lib.pagesizes import A4, letter
 from reportlab.lib.units import mm
+from reportlab.lib.utils import ImageReader
 from reportlab.pdfgen import canvas
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -194,7 +195,9 @@ def draw_footer(c, paper_w, paper_h):
     # Buy Me a Coffee QR, bottom right, clickable
     if os.path.exists(QR_PATH):
         qx = paper_w - MARGIN - QR_SIZE
-        c.drawImage(QR_PATH, qx * mm, 1 * mm, QR_SIZE * mm, QR_SIZE * mm, mask="auto")
+        # ImageReader makes reportlab name the image by its pixel data rather than its file path,
+        # so the PDF is byte-identical whether built here or in CI
+        c.drawImage(ImageReader(QR_PATH), qx * mm, 1 * mm, QR_SIZE * mm, QR_SIZE * mm, mask="auto")
         c.drawRightString((qx - 2) * mm, 6 * mm, "Saved you a trip to the shop?")
         c.drawRightString((qx - 2) * mm, 3 * mm, "buymeacoffee.com/samblakeman")
         c.linkURL(COFFEE_URL, ((qx - 45) * mm, 1 * mm, (paper_w - MARGIN) * mm, (1 + QR_SIZE) * mm), relative=0)
