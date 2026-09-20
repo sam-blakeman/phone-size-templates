@@ -2,6 +2,8 @@
 
 Print-at-actual-size paper templates for phones, so you can cut one out and feel the size before you buy.
 
+<img src="assets/hero-iphone-duo-closed.jpg" alt="Paper cutout of the iPhone Duo closed, held in a hand at actual size" width="600">
+
 Each template shows the body outline at 1:1 scale, the active screen area shaded inside it so you can see the bezels, a thin strip showing thickness, and a 100 mm calibration bar so you can confirm your printer did not scale the page.
 
 All figures come from the manufacturer's own spec pages. Screen areas are computed from the published resolution and pixel density, which is more accurate than working back from a quoted diagonal.
