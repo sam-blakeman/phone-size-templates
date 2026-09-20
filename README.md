@@ -23,6 +23,10 @@ All figures come from the manufacturer's own spec pages. Screen areas are comput
 | Pixel 11 Pro Fold | closed and open | [PDF](pdf/pixel-11-pro-fold-a4.pdf) | [PDF](pdf/pixel-11-pro-fold-letter.pdf) |
 | Foldables 2026 | iPhone Duo, Z Fold8, Z Fold8 Ultra, Pixel 11 Pro Fold | [PDF](pdf/foldables-2026-a4.pdf) | [PDF](pdf/foldables-2026-letter.pdf) |
 
+The iPhone Duo closed and open, cut from the A4 sheet, next to an iPhone 17 Pro.
+
+<img src="assets/iphone-duo-vs-iphone-17-pro.jpg" alt="Paper cutouts of the iPhone Duo closed and open next to an iPhone 17 Pro" width="600">
+
 ## How to print
 
 1. Open the PDF in a proper PDF viewer (Preview, Acrobat, or your browser).
