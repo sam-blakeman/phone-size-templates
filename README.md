@@ -40,7 +40,7 @@ Flags: `--paper a4|letter`, `--no-edges` to drop the thickness strips, `--title`
 
 ## Adding a device
 
-Edit `devices.yaml`. Every entry needs the manufacturer spec page as `source`. Body width, height and depth in mm, weight in grams, and the screen as pixels in the same orientation as the body plus either `ppi` (Apple, Google) or the full-rectangle `diagonal_mm` (Samsung). Foldables list one state per configuration and can set `hinge` to draw a fold line. See the comments at the top of the file.
+Edit `devices.yaml`. Every entry needs the manufacturer spec page as `source`. Body width, height and depth in mm, weight in grams, and the screen as pixels in the same orientation as the body plus either `ppi` (Apple, Google) or the full-rectangle `diagonal_mm` (Samsung). Foldables list one state per configuration and can set `hinge` to draw a fold line and `flat_edge` to square off the corners on the spine side when closed. See the comments at the top of the file.
 
 Then run:
 

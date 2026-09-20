@@ -9,6 +9,8 @@
 #     The generator computes the physical active area from these, which is more accurate than a quoted inch figure.
 #   - corner_radius_mm is an estimate for a nicer cut line. Manufacturers do not publish it. Say so if you measured it.
 #   - hinge: vertical | horizontal | null. Draws a dashed fold line through the middle of that state.
+#   - flat_edge: left | right | top | bottom | null. Corners on that edge are drawn square instead of rounded,
+#     for closed foldables whose spine is flat.
 #   - diagonal_in is optional. If present, `generate.py --check` warns when the computed diagonal disagrees by more than 0.05 in.
 
 devices:
@@ -47,6 +49,7 @@ devices:
         weight_g: 254
         screen: {px_w: 1398, px_h: 2034, ppi: 460, diagonal_in: 5.36}
         corner_radius_mm: 8
+        flat_edge: left
       - name: open
         body: {w: 164.6, h: 117.8, d: 5.2}
         weight_g: 254

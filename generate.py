@@ -60,7 +60,7 @@ def build_items(devices, ids, edges=True):
                 "kind": "body", "w": b["w"], "h": b["h"], "d": b["d"],
                 "label": label, "weight": st.get("weight_g"),
                 "screen": st.get("screen"), "r": st.get("corner_radius_mm", 8),
-                "hinge": st.get("hinge"),
+                "hinge": st.get("hinge"), "flat_edge": st.get("flat_edge"),
             })
             if edges:
                 edge_items.append({"kind": "edge", "w": b["d"], "h": b["h"],
@@ -125,6 +125,29 @@ def layout(items, paper_w, paper_h):
 
 # ---------------------------------------------------------------- drawing
 
+def rounded_rect(c, x, y, w, h, r, flat_edge=None, stroke=1, fill=0):
+    """Rounded rectangle in mm. Corners on `flat_edge` (left/right/top/bottom) are drawn square."""
+    if not flat_edge:
+        c.roundRect(x * mm, y * mm, w * mm, h * mm, r * mm, stroke=stroke, fill=fill)
+        return
+    sq = {"left": {"bl", "tl"}, "right": {"br", "tr"}, "top": {"tl", "tr"}, "bottom": {"bl", "br"}}[flat_edge]
+    rr = {k: (0 if k in sq else r) for k in ("bl", "br", "tr", "tl")}
+    X, Y, W, H = x * mm, y * mm, w * mm, h * mm
+    R = {k: v * mm for k, v in rr.items()}
+    p = c.beginPath()
+    p.moveTo(X + R["bl"], Y)
+    p.lineTo(X + W - R["br"], Y)
+    if R["br"]: p.arcTo(X + W - 2 * R["br"], Y, X + W, Y + 2 * R["br"], startAng=270, extent=90)
+    p.lineTo(X + W, Y + H - R["tr"])
+    if R["tr"]: p.arcTo(X + W - 2 * R["tr"], Y + H - 2 * R["tr"], X + W, Y + H, startAng=0, extent=90)
+    p.lineTo(X + R["tl"], Y + H)
+    if R["tl"]: p.arcTo(X, Y + H - 2 * R["tl"], X + 2 * R["tl"], Y + H, startAng=90, extent=90)
+    p.lineTo(X, Y + R["bl"])
+    if R["bl"]: p.arcTo(X, Y, X + 2 * R["bl"], Y + 2 * R["bl"], startAng=180, extent=90)
+    p.close()
+    c.drawPath(p, stroke=stroke, fill=fill)
+
+
 def draw_header(c, paper_w, paper_h, title, page_no, page_count):
     c.setFillColorRGB(0, 0, 0)
     c.setFont("Helvetica-Bold", 11)
@@ -172,14 +195,14 @@ def draw_body(c, it):
         c.setLineWidth(0.35)
         c.setStrokeColorRGB(0.5, 0.5, 0.5)
         c.setFillColorRGB(0.93, 0.93, 0.93)
-        c.roundRect(sx * mm, sy * mm, sw * mm, sh * mm, max(it["r"] - 2.5, 1) * mm, stroke=1, fill=1)
+        rounded_rect(c, sx, sy, sw, sh, max(it["r"] - 2.5, 1), it.get("flat_edge"), stroke=1, fill=1)
         c.setFillColorRGB(0.45, 0.45, 0.45)
         c.setFont("Helvetica", 6)
         c.drawCentredString((x + w / 2) * mm, (sy + 3) * mm,
                             f"screen {sw:.1f} x {sh:.1f} mm, bezel {(w - sw) / 2:.1f} side / {(h - sh) / 2:.1f} top")
     c.setLineWidth(0.5)
     c.setStrokeColorRGB(0, 0, 0)
-    c.roundRect(x * mm, y * mm, w * mm, h * mm, it["r"] * mm, stroke=1, fill=0)
+    rounded_rect(c, x, y, w, h, it["r"], it.get("flat_edge"), stroke=1, fill=0)
     if it.get("hinge"):
         c.setDash(2, 2); c.setStrokeColorRGB(0.5, 0.5, 0.5)
         if it["hinge"] == "vertical":
