@@ -207,7 +207,7 @@ def render(devices, ids, paper, out, title, edges=True):
     paper_w, paper_h = pw_pt / mm, ph_pt / mm
     items = build_items(devices, ids, edges)
     pages = layout(items, paper_w, paper_h)
-    c = canvas.Canvas(out, pagesize=(pw_pt, ph_pt))
+    c = canvas.Canvas(out, pagesize=(pw_pt, ph_pt), invariant=1)  # deterministic output, no timestamps
     c.setTitle(f"{title}, actual size ({paper.upper()})")
     c.setAuthor("phone-size-templates")
     for n, pg in enumerate(pages, 1):
