@@ -1,0 +1,98 @@
+# Device dimensions for print-at-actual-size templates.
+#
+# Rules for adding a device:
+#   - Body and screen figures must come from the manufacturer's own spec page. Put the URL in `source`.
+#   - Body width/height are in the orientation you want drawn on paper. For a foldable's open
+#     state that is usually landscape, exactly as the manufacturer lists it.
+#   - Screen is given as pixels plus ppi, in the same orientation as the body (px_w runs along body width).
+#     The generator computes the physical active area from these, which is more accurate than a quoted diagonal.
+#   - corner_radius_mm is an estimate for a nicer cut line. Manufacturers do not publish it. Say so if you measured it.
+#   - hinge: vertical | horizontal | null. Draws a dashed fold line through the middle of that state.
+#   - diagonal_in is optional. If present, `generate.py --check` warns when the computed diagonal disagrees by more than 0.05 in.
+
+devices:
+
+  - id: iphone-18-pro
+    name: iPhone 18 Pro
+    maker: Apple
+    released: 2026-09
+    source: https://www.apple.com/iphone-18-pro/specs/
+    states:
+      - body: {w: 71.9, h: 150.0, d: 8.75}
+        weight_g: 211
+        screen: {px_w: 1206, px_h: 2622, ppi: 460, diagonal_in: 6.27}
+        corner_radius_mm: 12
+
+  - id: iphone-18-pro-max
+    name: iPhone 18 Pro Max
+    maker: Apple
+    released: 2026-09
+    source: https://www.apple.com/iphone-18-pro/specs/
+    states:
+      - body: {w: 78.0, h: 163.4, d: 8.75}
+        weight_g: 249
+        screen: {px_w: 1320, px_h: 2868, ppi: 460, diagonal_in: 6.86}
+        corner_radius_mm: 13
+
+  - id: iphone-duo
+    name: iPhone Duo
+    maker: Apple
+    released: 2026-09
+    source: https://www.apple.com/iphone-duo/specs/
+    notes: Book-style foldable. Closed it is passport-shaped with the cover screen facing out. It opens along the long edge into a landscape inner screen.
+    states:
+      - name: closed
+        body: {w: 84.1, h: 117.8, d: 11.3}
+        weight_g: 254
+        screen: {px_w: 1398, px_h: 2034, ppi: 460, diagonal_in: 5.36}
+        corner_radius_mm: 8
+      - name: open
+        body: {w: 164.6, h: 117.8, d: 5.2}
+        weight_g: 254
+        screen: {px_w: 2670, px_h: 1878, ppi: 430, diagonal_in: 7.58}
+        corner_radius_mm: 8
+        hinge: vertical
+
+  - id: iphone-17
+    name: iPhone 17
+    maker: Apple
+    released: 2025-09
+    source: https://www.apple.com/iphone-17/specs/
+    states:
+      - body: {w: 71.5, h: 149.6, d: 7.95}
+        weight_g: 177
+        screen: {px_w: 1206, px_h: 2622, ppi: 460, diagonal_in: 6.27}
+        corner_radius_mm: 12
+
+  - id: iphone-air
+    name: iPhone Air
+    maker: Apple
+    released: 2025-09
+    source: https://www.apple.com/iphone-air/specs/
+    states:
+      - body: {w: 74.7, h: 156.2, d: 5.64}
+        weight_g: 165
+        screen: {px_w: 1260, px_h: 2736, ppi: 460, diagonal_in: 6.55}
+        corner_radius_mm: 12.5
+
+  - id: iphone-17-pro
+    name: iPhone 17 Pro
+    maker: Apple
+    released: 2025-09
+    source: https://support.apple.com/en-us/125090
+    states:
+      - body: {w: 71.9, h: 150.0, d: 8.75}
+        weight_g: 206
+        screen: {px_w: 1206, px_h: 2622, ppi: 460, diagonal_in: 6.27}
+        corner_radius_mm: 12
+
+  - id: iphone-17-pro-max
+    name: iPhone 17 Pro Max
+    maker: Apple
+    released: 2025-09
+    source: https://support.apple.com/en-us/125091
+    states:
+      - body: {w: 78.0, h: 163.4, d: 8.75}
+        weight_g: 233
+        screen: {px_w: 1320, px_h: 2868, ppi: 460, diagonal_in: 6.86}
+        corner_radius_mm: 13

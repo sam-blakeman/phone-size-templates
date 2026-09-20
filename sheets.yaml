@@ -1,0 +1,23 @@
+# Pre-built sheets. `python generate.py --all-sheets` renders every entry into pdf/ for each listed paper size.
+# Output name: pdf/<id>-<paper>.pdf
+
+sheets:
+  - id: iphone-18-pro-family
+    title: iPhone 18 Pro and 18 Pro Max
+    devices: [iphone-18-pro, iphone-18-pro-max]
+    paper: [a4, letter]
+
+  - id: iphone-duo
+    title: iPhone Duo, closed and open
+    devices: [iphone-duo]
+    paper: [a4, letter]
+
+  - id: iphone-2026-lineup
+    title: iPhone Duo, 18 Pro and 18 Pro Max
+    devices: [iphone-18-pro, iphone-18-pro-max, iphone-duo]
+    paper: [a4, letter]
+
+  - id: iphone-17-family
+    title: iPhone 17, Air, 17 Pro and 17 Pro Max
+    devices: [iphone-17, iphone-air, iphone-17-pro, iphone-17-pro-max]
+    paper: [a4, letter]
